@@ -1,4 +1,4 @@
-namespace SFmodule34
+namespace HomeApi
 {
     public class WeatherForecast
     {

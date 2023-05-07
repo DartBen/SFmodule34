@@ -1,13 +1,21 @@
 
-namespace SFmodule34
+using HomeApi.Configuration;
+
+namespace HomeApi
 {
     public class Program
     {
+
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Configuration.AddJsonFile("Configuration\\HomeOptions.json");
+
             // Add services to the container.
+            // Добавляем новый сервис
+            builder.Services.Configure<HomeOptions>(builder.Configuration);
+
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
