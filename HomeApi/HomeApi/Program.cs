@@ -16,6 +16,7 @@ namespace HomeApi
             // Добавляем новый сервис
             builder.Services.Configure<HomeOptions>(builder.Configuration);
 
+            builder.Services.AddAutoMapper(typeof(MappingProfile));
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

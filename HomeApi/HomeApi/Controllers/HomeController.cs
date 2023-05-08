@@ -1,4 +1,5 @@
-﻿using HomeApi.Configuration;
+﻿using AutoMapper;
+using HomeApi.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Text;
@@ -9,11 +10,13 @@ public class HomeController : ControllerBase
 {
     // Ссылка на объект конфигурации
     private IOptions<HomeOptions> _options;
+    private IMapper _mapper;
 
     // Инициализация конфигурации при вызове конструктора
-    public HomeController(IOptions<HomeOptions> options)
+    public HomeController(IOptions<HomeOptions> options, IMapper mapper)
     {
         _options = options;
+        _mapper = mapper;
     }
 
     /// <summary>
