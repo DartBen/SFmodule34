@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using HomeApi.Configuration;
+using HomeApi.Contracts.Devices;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
@@ -36,9 +37,9 @@ namespace HomeApi.Controllers
         /// </summary>
         [HttpPost]
         [Route("Add")]
-        public IActionResult Add()
+        public IActionResult Add([FromBody] AddDeviceRequest request)// Атрибут, указывающий, откуда брать значение объекта + // Объект запроса
         {
-            return StatusCode(200, "Этот метод будет добавлять новые устройства");
+            return StatusCode(200, $"Устройство {request.Name} добавлено!");
         }
     }
 }
