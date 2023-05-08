@@ -1,41 +1,44 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using HomeApi.Configuration;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace HomeApi.Controllers
 {
+    /// <summary>
+    /// Контроллер статусов устройств
+    /// </summary>
     [ApiController]
     [Route("[controller]")]
-    public class DevicesController : Controller
+    public class DevicesController : ControllerBase
     {
-        private readonly ILogger<WeatherForecastController> _logger;
-        private readonly IHostEnvironment _env;
+        private IOptions<HomeOptions> _options;
+        private IMapper _mapper;
 
-        // Инициализация конфигурации при вызове конструктора
-        public DevicesController(ILogger<WeatherForecastController> logger, IHostEnvironment hostEnvironment)
+        public DevicesController(IOptions<HomeOptions> options, IMapper mapper)
         {
-            _logger = logger;
-            _env = hostEnvironment;
+            _options = options;
+            _mapper = mapper;
         }
 
+        /// <summary>
+        /// Просмотр списка подключенных устройств
+        /// </summary>
         [HttpGet]
-        [HttpHead]
-        [Route("manufacturer")]
-        public IActionResult GetManual([FromQuery] string manufacturer)
+        [Route("")]
+        public IActionResult Get()
         {
-            string manufacturerName = manufacturer.Split("/").Last();
+            return StatusCode(200, "Устройства отсутствуют");
+        }
 
-            var staticPath = Path.Combine(_env.ContentRootPath, "Static");
-            var filePath = Directory.GetFiles(staticPath)
-                .FirstOrDefault(path => path.Split("\\")
-                .Last()
-                .Split(".")[0] == manufacturerName);
-
-            if (filePath == null)
-                return StatusCode(404, $"Инструкция {manufacturerName} не найдена на сервере.");
-
-            string fileType = "application";
-            string fileName = $"{manufacturerName}.pdf";
-
-            return PhysicalFile(filePath, fileType, fileName);
+        /// <summary>
+        /// Добавление нового устройства
+        /// </summary>
+        [HttpPost]
+        [Route("Add")]
+        public IActionResult Add()
+        {
+            return StatusCode(200, "Этот метод будет добавлять новые устройства");
         }
     }
 }
