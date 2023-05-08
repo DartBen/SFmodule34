@@ -1,5 +1,8 @@
-
 using HomeApi.Configuration;
+using HomeApi.Contracts.Validation;
+using FluentValidation;
+using HomeApi.Contracts.Devices;
+using FluentValidation.AspNetCore;
 
 namespace HomeApi
 {
@@ -22,6 +25,10 @@ namespace HomeApi
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            // Подключаем валидацию
+            builder.Services.AddFluentValidation(fv => 
+                fv.RegisterValidatorsFromAssemblyContaining<AddDeviceRequestValidator>());
 
             var app = builder.Build();
 
